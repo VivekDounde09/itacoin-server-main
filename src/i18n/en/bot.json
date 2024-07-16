@@ -1,0 +1,110 @@
+{
+  "greeting": "Welcome Itacoin Bot🚀 ✅\n\nLooking for a reliable and profitable way to grow your cryptocurrency investments?\n\nWith Itacoin Bot you can lock in your funds and earn monthly rewards, with interest rates that increase based on your balance💰\n\nWhether you're an experienced investor or just starting out, we have a plan to fit your needs.💳💲\n\nHere are our investment plans:🔥\n\n1⃣ 10 USDT - 499 USDT\nYou can earn 4% for month ✅\n\n2⃣ 500 USDT - 2499 USDT\nYou can earn 4.5% for month ✅\n\n3⃣ 2500 USDT - 9999 USDT\nYou can earn 5% for month ✅\n\n4️⃣ 10000 USDT - INFINITE\nYou can earn 7% for month ✅\n\nPlus, you'll receive your earnings on a daily basis, so you can watch your wealth grow in real time.💰👀\n\nDon't miss this amazing opportunity to earn monthly rewards with your cryptocurrency. 💳\n\nJoin Itacoin Bot today and start investing like a pro!🔥🚀✅",
+  "account": {
+    "info": "💻 Personal account:\n\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n📑 Verification: {isVerified}\n🗄 ID: {publicId}\n💵 Balance: {mainBalance} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\nℹ️ User statistics:\n┏ Total investments made: {totalInvestments}\n┣ Completed: {completedInvestments}\n┣ Active: {activeInvestments}\n┗ {withdrewAmount} USD withdrawals were made in the amount of {totalInvestmentAmount} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\nOpen the doors to the world of cryptocurrencies with ITA Coin - your faithful companion in online trading in the financial markets\n\nFor support contact at: help@itacoinbot.com",
+    "action": {
+      "withdraw": "Kindly share with us the amount you'd like to withdraw\n💵 Withdrawable Balance: {withdrawableAmount} USD",
+      "verify": "Please send above verification code to verify your account"
+    },
+    "verification": {
+      "invalidCode": "Incorrect verification code, Please try again",
+      "verified": "Your account already marked as verified",
+      "success": "Thank you for your response, You account marked as verified"
+    }
+  },
+  "withdraw": {
+    "action": {
+      "putWalletAddress": "Kindly share with us the wallet address you'd like to receive funds",
+      "acknowledged": "Are you sure you want to withdraw {amount} USD from your wallet to address {address}",
+      "denied": "Thanks for your response, You cancelled your withdraw request",
+      "confirmed": "Thanks for your response, Your withdraw request will be processed by {expectedTime} GMT"
+    },
+    "invalidWalletAddress": "Invalid wallet address",
+    "invalidAmount": "Invalid amount",
+    "minAmountError": "Amount should be atleast 1 cent",
+    "maxAmountError": "Amount should be less than or equal to {amount} USD"
+  },
+  "portfolio": {
+    "info": "📊 Your Portfolio\n\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n1️⃣ Plan 1: 💵 {tierOneInvestmentAmount} USD\n2️⃣ Plan 2: 💵 {tierTwoInvestmentAmount} USD\n3️⃣ Plan 3: 💵 {tierThreeInvestmentAmount} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n💰 Your active investments:",
+    "card": "\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n📑 Portfolio ID: {portfolioId}\n🗄 Plan: {plan}\n💵 Initial Value: {initialAmount} USD\n💵 Current Value: {currentAmount} USD\n📅 Investment Date: {investmentDate}\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n",
+    "notFound": "\n🔍 You don't have any active investment",
+    "action": {
+      "redeem": "Click on portfolio to redeem current value into your wallet",
+      "acknowledged": "Are you sure you want to redeem portfolio with ID {portfolioId} with current value {investmentAmount} USD to your wallet",
+      "denied": "Thanks for your response, You cancelled your redeem request",
+      "confirmed": "Thanks for your response, Your redeem request processed successfully"
+    }
+  },
+  "investment": {
+    "basketsInfo": "📈 Invest your USDT wisely, and watch your earnings soar! 📈\n\n🌐 Explore our Investment Plans:\n\n1⃣ 10 USDT - 499 USDT\nYou can earn 4% for month ✅\n\n2⃣ 500 USDT - 2499 USDT\nYou can earn 4.5% for month ✅\n\n3⃣ 2500 USDT - 9999 USDT\nYou can earn 5% for month ✅\n\n4️⃣ 10000 USDT - INFINITE\nYou can earn 7% for month ✅\n\n⏳ Hold onto your investment for a minimum of 3 months and watch your rewards grow! ⏳",
+    "baskets": ["Plan 1", "Plan 2", "Plan 3", "Plan 4"],
+    "action": {
+      "invest": "Kindly share with us the amount you'd like to invest",
+      "acknowledged": "Are you sure you want to invest {investmentAmount} USD in {plan}",
+      "denied": "Thanks for your response, You cancelled your invesment request",
+      "confirmed": "Thanks for your response, Your investment request processed successfully"
+    },
+    "invalidAmount": "Invalid amount",
+    "minAmountError": "Amount should be atleast {amount} USD",
+    "maxAmountError": "Amount should be less than or equal to {amount} USD",
+    "topup": "Insufficient balance, Plese topup your account with {topupAmount} USD"
+  },
+  "payment": {
+    "payInfo": "Please make payment on this QR code or send BEP20 USDT token on {wallet} address",
+    "wait": "Please wait...",
+    "description": "You are adding {amount} USD in your account",
+    "invalidAmount": "Invalid amount",
+    "minAmountError": "Amount should be atleast 10 USD",
+    "success": "Thank you for recharging your main wallet. Your funds have been successfully added. If you have any questions or need further assistance, please feel free to reach out to our support team"
+  },
+  "referral": {
+    "unlock": "Make your first 💰investment and invite users using referral code to unlock 💵referral bonus",
+    "info": "Invite users to get 💵referral bonus using referral code\n🤝 Referral Code: {referralCode}\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\nℹ️ Referral statistics:\n┏ Referrals: {referredUsersCount}\n┣ Total Earning: {totalBonusAmount} USD\n┗ Current Balance: {bonusWalletAmount} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖",
+    "invalidCode": "Invalid referral code",
+    "invalidAmount": "Invalid amount",
+    "minAmountError": "Amount should be atleast 1 cent",
+    "maxAmountError": "Amount should be less than or equal to {amount} USD",
+    "withdraw": {
+      "success": "Your referral bonus withdraw request processed successfully"
+    },
+    "code": {
+      "info": "Your account was referred by referrer code {usedReferralCode}",
+      "success": "Thank you for your response, Your referral code used successfully"
+    },
+    "action": {
+      "enterCode": "Kindly share with us the referral code you'd like to use",
+      "withdraw": "Kindly share with us the amount you'd like to withdraw\n💵 Current Balance: {bonusWalletAmount} USD"
+    }
+  },
+  "language": {
+    "en": "English",
+    "it": "Italian",
+    "select": "Select a language 🌍",
+    "change": "Change current language 🌍"
+  },
+  "keyboard": {
+    "persistent": [
+      "💼 Personal account",
+      "⚙️ Settings",
+      "💰 Deposit",
+      "🏧 Withdraw"
+    ],
+    "account": [
+      "💵 Top Up",
+      "💰 Invest",
+      "📊 Portfolio",
+      "🛡️ Verification",
+      "🤝 Referral"
+    ],
+    "acknowledged": ["Confirm", "Cancel"],
+    "referral": {
+      "unlock": "Use Referral Code",
+      "withdraw": "Withdraw"
+    },
+    "portfolio": {
+      "redeem": "Redeem",
+      "portfolio": "Portfolio"
+    },
+    "goBack": "<< Go Back"
+  }
+}

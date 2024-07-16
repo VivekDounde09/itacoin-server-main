@@ -1,0 +1,46 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:15
+    container_name: itacoin-postgres
+    restart: unless-stopped
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ${POSTGRES_DATA_VOLUME}:/var/lib/postgresql/data
+  redis:
+    image: redis/redis-stack
+    container_name: itacoin-redis
+    restart: unless-stopped
+    ports:
+      - ${REDIS_PORT}:6379
+      - ${REDISINSIGHT_PORT}:8001
+    environment:
+      - REDIS_ARGS=--requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ${REDIS_DATA_VOLUME}:/data
+  itacoin:
+    image: itacoin-${APP_ENV}
+    build:
+      context: .
+      target: itacoin
+      args:
+        - PORT:${PORT}
+    container_name: itacoin-${APP_ENV}
+    restart: unless-stopped
+    ports:
+      - ${PORT}:${PORT}
+    # Uncomment this to disable run application on standalone mode
+    # depends_on:
+    #   - postgres
+    #   - redis
+    volumes:
+      - .env:/itacoin/.env:ro
+      - ${STORAGE_DATA_VOLUME}:/itacoin/${STORAGE_DIR}
+      - ${LOG_VOLUME}:/itacoin/${LOG_DIR}
+networks:
+  default:
+    name: itacoin

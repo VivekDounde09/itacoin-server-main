@@ -1,0 +1,110 @@
+{
+  "greeting": "Benvenuto Itacoin Bot🚀 ✅\n\nStai cercando un modo affidabile e redditizio per far crescere i tuoi investimenti in criptovalute?\n\nCon Itacoin Bot puoi bloccare i tuoi fondi e guadagnare ricompense mensili, con tassi di interesse che aumentano in base al tuo saldo💰\n\nChe tu sia un investitore esperto o alle prime armi, abbiamo un piano adatto alle tue esigenze.💳💲\n\nEcco i nostri piani di investimento:🔥\n\n1⃣ 10 USDT - 499 USDT\nPuoi guadagnare il 4% al mese ✅\n\n2⃣ 500 USDT - 2499 USDT\nPuoi guadagnare il 4.5% al mese ✅\n\n3⃣ 2500 USDT - 9999 USDT\nPuoi guadagnare il 5% al mese ✅\n\n4️⃣ 10000 USDT - INFINITE\nPuoi guadagnare il 7% al mese ✅\n\nInoltre, riceverai i tuoi guadagni quotidiani, così potrai vedere crescere la tua ricchezza in tempo reale.💰👀\n\nNon perdere questa incredibile opportunità di guadagnare ricompense mensili con la tua criptovaluta. 💳\n\nUnisciti a Itacoin Bot oggi e inizia a investire come un professionista!🔥🚀✅",
+  "account": {
+    "info": "💻 Account personale:\n\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n📑 Verifica: {isVerified}\n🗄 ID: {publicId}\n💵 Saldo: {mainBalance} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\nℹ️ Statistiche utente:\n┏ Investimenti totali effettuati: {totalInvestments}\n┣ Completati: {completedInvestments}\n┣ Attivi: {activeInvestments}\n┗ Sono stati effettuati {withdrewAmount} USD in prelievi per un importo totale di {totalInvestmentAmount} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\nApri le porte del mondo delle criptovalute con ITA Coin - il tuo fedele compagno nel trading online nei mercati finanziari\n\nPer supporto contattare a: help@itacoinbot.com",
+    "action": {
+      "withdraw": "Per favore, condividi con noi l'importo che desideri prelevare\n💵 Saldo prelevabile: {withdrawableAmount} USD",
+      "verify": "Per favore, invia il codice di verifica sopra per verificare il tuo account"
+    },
+    "verification": {
+      "invalidCode": "Codice di verifica non corretto, per favore riprova",
+      "verified": "Il tuo account è già contrassegnato come verificato",
+      "success": "Grazie per la tua risposta, il tuo account è contrassegnato come verificato"
+    }
+  },
+  "withdraw": {
+    "action": {
+      "putWalletAddress": "Condividi gentilmente l'indirizzo del portafoglio in cui desideri ricevere i fondi",
+      "acknowledged": "Sei sicuro di voler prelevare {amount} USD dal tuo portafoglio all'indirizzo {address}",
+      "denied": "Grazie per la tua risposta, hai annullato la tua richiesta di prelievo",
+      "confirmed": "Grazie per la tua risposta, la tua richiesta di prelievo sarà elaborata entro {expectedTime} GMT"
+    },
+    "invalidWalletAddress": "Indirizzo del portafoglio non valido",
+    "invalidAmount": "Importo non valido",
+    "minAmountError": "L'importo deve essere almeno di 1 centesimo",
+    "maxAmountError": "L'importo deve essere inferiore o uguale a {amount} USD"
+  },
+  "portfolio": {
+    "info": "📊 Il tuo portafoglio\n\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n1️⃣ Piano 1: 💵 {tierOneInvestmentAmount} USD\n2️⃣ Piano 2: 💵 {tierTwoInvestmentAmount} USD\n3️⃣ Piano 3: 💵 {tierThreeInvestmentAmount} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n💰 I tuoi investimenti attivi:",
+    "card": "\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n📑 ID portafoglio: {portfolioId}\n🗄 Piano: {plan}\n💵 Valore iniziale: {initialAmount} USD\n💵 Valore attuale: {currentAmount} USD\n📅 Data di investimento: {investmentDate}\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n",
+    "notFound": "\n🔍 Non hai alcun investimento attivo",
+    "action": {
+      "redeem": "Clicca sul portafoglio per riscattare il valore attuale nel tuo portafoglio",
+      "acknowledged": "Sei sicuro di voler riscattare il portafoglio con ID {portfolioId} con un valore attuale di {investmentAmount} USD nel tuo portafoglio",
+      "denied": "Grazie per la tua risposta, hai annullato la tua richiesta di riscatto",
+      "confirmed": "Grazie per la tua risposta, la tua richiesta di riscatto è stata elaborata con successo"
+    }
+  },
+  "investment": {
+    "basketsInfo": "📈 Investi saggiamente i tuoi USDT e guarda i tuoi guadagni crescere! 📈\n\n🌐 Esplora i nostri Piani di Investimento:\n\n1⃣ 10 USDT - 499 USDT\nPuoi guadagnare il 4% al mese ✅\n\n2⃣ 500 USDT - 2499 USDT\nPuoi guadagnare il 4.5% al mese ✅\n\n3⃣ 2500 USDT - 9999 USDT\nPuoi guadagnare il 5% al mese ✅\n\n4️⃣ 10000 USDT - INFINITE\nPuoi guadagnare il 7% al mese ✅\n\n⏳ Mantieni il tuo investimento per almeno 3 mesi e osserva crescere le tue ricompense! ⏳",
+    "baskets": ["Piano 1", "Piano 2", "Piano 3", "Piano 4"],
+    "action": {
+      "invest": "Condividi gentilmente l'importo che desideri investire",
+      "acknowledged": "Sei sicuro di voler investire {investmentAmount} USD in {plan}",
+      "denied": "Grazie per la tua risposta, hai annullato la tua richiesta di investimento",
+      "confirmed": "Grazie per la tua risposta, la tua richiesta di investimento è stata elaborata con successo"
+    },
+    "invalidAmount": "Importo non valido",
+    "minAmountError": "L'importo deve essere almeno di {amount} USD",
+    "maxAmountError": "L'importo deve essere inferiore o uguale a {amount} USD",
+    "topup": "Saldo insufficiente, effettua un'ulteriore ricarica del tuo account con {topupAmount} USD"
+  },
+  "payment": {
+    "payInfo": "Per favore, effettua il pagamento su questo codice QR o invia token BEP20 USDT all'indirizzo {wallet}",
+    "wait": "Attendere prego...",
+    "description": "Stai aggiungendo {amount} USD al tuo account",
+    "invalidAmount": "Importo non valido",
+    "minAmountError": "L'importo deve essere almeno di 10 USD",
+    "success": "Grazie per aver ricaricato il tuo portafoglio principale. I fondi sono stati aggiunti con successo. Se hai domande o hai bisogno di ulteriore assistenza, non esitare a contattare il nostro team di supporto"
+  },
+  "referral": {
+    "unlock": "Effettua il tuo primo 💰investimento e invita utenti utilizzando il codice di riferimento per sbloccare il 💵bonus di riferimento",
+    "info": "Invita utenti per ottenere il 💵bonus di riferimento utilizzando il codice di riferimento\n🤝 Codice di Riferimento: {referralCode}\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖\nℹ️ Statistiche di Riferimento:\n┏ Referral: {referredUsersCount}\n┣ Guadagno Totale: {totalBonusAmount} USD\n┗ Saldo Attuale: {bonusWalletAmount} USD\n➖➖➖➖➖➖➖➖➖➖➖➖➖➖",
+    "invalidCode": "Codice di riferimento non valido",
+    "invalidAmount": "Importo non valido",
+    "minAmountError": "L'importo deve essere almeno di 1 centesimo",
+    "maxAmountError": "L'importo deve essere inferiore o uguale a {amount} USD",
+    "withdraw": {
+      "success": "La tua richiesta di prelievo del bonus di riferimento è stata elaborata con successo"
+    },
+    "code": {
+      "info": "Il tuo account è stato referenziato dal codice del referente {usedReferralCode}",
+      "success": "Grazie per la tua risposta, Il tuo codice di riferimento è stato utilizzato con successo"
+    },
+    "action": {
+      "enterCode": "Condividi gentilmente il codice di riferimento che desideri utilizzare",
+      "withdraw": "Condividi gentilmente l'importo che desideri prelevare\n💵 Saldo attuale: {bonusWalletAmount} USD"
+    }
+  },
+  "language": {
+    "en": "Inglese",
+    "it": "Italiano",
+    "select": "Seleziona una lingua 🌍",
+    "change": "Cambia lingua corrente 🌍"
+  },
+  "keyboard": {
+    "persistent": [
+      "💼 Account personale",
+      "⚙️ Impostazioni",
+      "💰 Deposito",
+      "🏧 Prelievo"
+    ],
+    "account": [
+      "💵 Ricarica",
+      "💰 Investi",
+      "📊 Portafoglio",
+      "🛡️ Verifica",
+      "🤝 Riferimento"
+    ],
+    "acknowledged": ["Conferma", "Annulla"],
+    "referral": {
+      "unlock": "Usa il codice di riferimento",
+      "withdraw": "Prelievo"
+    },
+    "portfolio": {
+      "riscatta": "Riscatta",
+      "portafoglio": "Portafoglio"
+    },
+    "goBack": "<< Indietro"
+  }
+}

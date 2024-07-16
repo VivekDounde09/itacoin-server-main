@@ -1,0 +1,414 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [ltree]
+}
+
+enum AdminStatus {
+  Active   @map("active")
+  Inactive @map("inactive")
+
+  @@map("admin_status")
+}
+
+model Admin {
+  id           String      @id @default(uuid()) @db.Uuid
+  firstname    String
+  lastname     String
+  email        String      @unique
+  profileImage String?     @map("profile_image")
+  status       AdminStatus @default(Active)
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  meta         AdminMeta?
+
+  @@map("admin")
+}
+
+model AdminMeta {
+  passwordSalt String? @map("password_salt")
+  passwordHash String? @map("password_hash")
+  admin        Admin   @relation(fields: [adminId], references: [id])
+  adminId      String  @unique() @map("admin_id") @db.Uuid
+
+  @@map("admin_meta")
+}
+
+enum UserStatus {
+  Active   @map("active")
+  Inactive @map("inactive")
+  Blocked  @map("blocked")
+  Suspend  @map("suspend")
+
+  @@map("user_status")
+}
+
+model User {
+  id              String          @id @default(uuid()) @db.Uuid
+  publicId        String          @unique @map("public_id")
+  firstname       String
+  lastname        String
+  username        String?         @unique
+  isVerified      Boolean         @default(false) @map("is_verified")
+  status          UserStatus      @default(Active)
+  createdAt       DateTime        @default(now()) @map("created_at")
+  updatedAt       DateTime        @updatedAt @map("updated_at")
+  meta            UserMeta?
+  settings        UserSetting[]
+  wallets         Wallet[]
+  investments     Investment[]
+  referralBonuses ReferralBonus[] @relation("ReferralBonuses")
+  uplineBonuses   ReferralBonus[] @relation("UplineBonuses")
+  withdraws       Withdraw[]
+  paymentWallets  PaymentWallet[]
+
+  @@map("user")
+}
+
+model UserMeta {
+  uplineId     String                @unique() @map("upline_id")
+  referralCode String                @unique @map("referral_code")
+  upline       Unsupported("ltree")?
+  user         User                  @relation(fields: [userId], references: [id])
+  userId       String                @unique() @map("user_id") @db.Uuid
+
+  @@map("user_meta")
+}
+
+enum OtpTransport {
+  Email  @map("email")
+  Mobile @map("mobile")
+
+  @@map("otp_transport")
+}
+
+model Otp {
+  code             String
+  attempt          Int          @default(1) @db.SmallInt
+  lastSentAt       DateTime     @default(now()) @map("last_sent_at")
+  retries          Int          @default(0) @db.SmallInt
+  transport        OtpTransport
+  target           String
+  lastCodeVerified Boolean      @default(false) @map("last_code_verified")
+  blocked          Boolean      @default(false)
+
+  @@unique([transport, target])
+  @@map("otp")
+}
+
+enum SettingType {
+  Binary       @map("binary")
+  MultiSelect  @map("multi_select")
+  SingleSelect @map("single_select")
+
+  @@map("setting_type")
+}
+
+enum SettingContext {
+  User   @map("user")
+  System @map("System")
+
+  @@map("setting_context")
+}
+
+model Setting {
+  id               Int             @id @default(autoincrement())
+  mappedTo         String          @map("mapped_to")
+  text             String          @default("")
+  description      String          @default("")
+  type             SettingType
+  context          SettingContext
+  default          Json
+  isDefinedOptions Boolean         @map("is_defined_options")
+  subSettings      Setting[]       @relation("SubSettings")
+  dependsOn        Setting?        @relation("SubSettings", fields: [parentId], references: [id])
+  parentId         Int?            @map("parent_id")
+  options          SettingOption[]
+  userSettings     UserSetting[]
+  systemSettings   SystemSetting[]
+
+  @@unique([context, mappedTo])
+  @@map("setting")
+}
+
+model SettingOption {
+  id        Int     @id @default(autoincrement())
+  text      String  @default("")
+  value     String
+  setting   Setting @relation(fields: [settingId], references: [id])
+  settingId Int     @map("setting_id")
+
+  @@unique([value, settingId])
+  @@map("setting_option")
+}
+
+model UserSetting {
+  selection Json
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @map("user_id") @db.Uuid
+  setting   Setting @relation(fields: [settingId], references: [id])
+  settingId Int     @map("setting_id")
+
+  @@id([userId, settingId])
+  @@map("user_setting")
+}
+
+model SystemSetting {
+  selection Json
+  setting   Setting @relation(fields: [settingId], references: [id])
+  settingId Int     @map("setting_id")
+
+  @@id([settingId])
+  @@map("system_setting")
+}
+
+enum WalletType {
+  Main  @map("main")
+  Trade @map("trade")
+  Bonus @map("bonus")
+
+  @@map("wallet_type")
+}
+
+model Wallet {
+  id           String              @id @default(uuid()) @db.Uuid
+  type         WalletType
+  amount       Decimal             @default(0) @db.Decimal(20, 2)
+  version      Int                 @default(0)
+  createdAt    DateTime            @default(now()) @map("created_at")
+  updatedAt    DateTime            @updatedAt @map("updated_at")
+  user         User                @relation(fields: [userId], references: [id])
+  userId       String              @map("user_id") @db.Uuid
+  transactions WalletTransaction[]
+
+  @@unique([userId, type])
+  @@map("wallet")
+}
+
+enum WalletTransactionType {
+  Debit  @map("debit")
+  Credit @map("credit")
+
+  @@map("wallet_transaction_type")
+}
+
+enum WalletTransactionStatus {
+  Pending   @map("pending")
+  Confirmed @map("confirmed")
+  Failed    @map("failed")
+
+  @@map("wallet_transaction_status")
+}
+
+enum WalletTransactionContext {
+  Deposit           @map("deposit")
+  Investment        @map("investment")
+  InvestmentEarning @map("investment_earning")
+  Unlock            @map("unlock")
+  Withdrawal        @map("withdrawal")
+  TradeWithdrawl    @map("trade_withdrawl")
+  BonusWithdrawl    @map("bonus_withdrawl")
+
+  @@map("wallet_transaction_context")
+}
+
+model WalletTransaction {
+  id               String                   @id @default(uuid()) @db.Uuid
+  amount           Decimal                  @db.Decimal(20, 2)
+  availableBalance Decimal                  @map("available_balance") @db.Decimal(20, 2)
+  type             WalletTransactionType
+  entityId         String?                  @map("entity_id") @db.Uuid
+  context          WalletTransactionContext
+  meta             Json?
+  nonce            Int
+  status           WalletTransactionStatus  @default(Confirmed)
+  createdAt        DateTime                 @default(now()) @map("created_at")
+  updatedAt        DateTime                 @updatedAt @map("updated_at")
+  wallet           Wallet                   @relation(fields: [walletId], references: [id])
+  walletId         String                   @map("wallet_id") @db.Uuid
+
+  @@unique([walletId, nonce])
+  @@map("wallet_transaction")
+}
+
+model InvestmentBasket {
+  id                String             @id @default(uuid()) @db.Uuid
+  tier              Int                @unique() @db.SmallInt
+  minAmount         Decimal            @db.Decimal(20, 2)
+  maxAmount         Decimal?           @db.Decimal(20, 2)
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  investments       Investment[]
+  investmentGrowths InvestmentGrowth[]
+
+  @@map("investment_basket")
+}
+
+enum InvestmentStatus {
+  Active   @map("active")
+  Closed   @map("closed")
+  Switched @map("switched")
+
+  @@map("investment_status")
+}
+
+model Investment {
+  id            String              @id @default(uuid()) @db.Uuid
+  portfolioId   Int                 @unique @default(autoincrement()) @map("portfolio_id")
+  initialAmount Decimal             @map("initial_amount") @db.Decimal(20, 2)
+  amount        Decimal             @db.Decimal(20, 2)
+  tenure        Int                 @default(1) @db.SmallInt
+  status        InvestmentStatus    @default(Active)
+  switchedTo    String?             @map("switched_to") @db.Uuid
+  startedAt     DateTime            @default(now()) @map("started_at")
+  closedAt      DateTime?           @map("closed_at")
+  createdAt     DateTime            @default(now()) @map("created_at")
+  updatedAt     DateTime            @updatedAt @map("updated_at")
+  user          User                @relation(fields: [userId], references: [id])
+  userId        String              @map("user_id") @db.Uuid
+  basket        InvestmentBasket    @relation(fields: [basketId], references: [id])
+  basketId      String              @map("basket_id") @db.Uuid
+  earnings      InvestmentEarning[]
+
+  @@map("investment")
+}
+
+model InvestmentGrowth {
+  id        String              @id @default(uuid()) @db.Uuid
+  growth    Decimal             @db.Decimal(6, 2)
+  month     Int                 @db.SmallInt
+  year      Int                 @db.SmallInt
+  affected  Int
+  processed Int                 @default(0)
+  createdAt DateTime            @default(now()) @map("created_at")
+  updatedAt DateTime            @updatedAt @map("updated_at")
+  basket    InvestmentBasket    @relation(fields: [basketId], references: [id])
+  basketId  String              @map("basket_id") @db.Uuid
+  earnings  InvestmentEarning[]
+
+  @@unique([basketId, month, year])
+  @@map("investment_growth")
+}
+
+enum InvestmentEarningStatus {
+  Pending   @map("pending")
+  Processed @map("processed")
+
+  @@map("investment_earning_status")
+}
+
+model InvestmentEarning {
+  id           String                  @id @default(uuid()) @db.Uuid
+  amount       Decimal                 @db.Decimal(20, 2)
+  earning      Decimal                 @db.Decimal(20, 2)
+  status       InvestmentEarningStatus @default(Processed)
+  createdAt    DateTime                @default(now()) @map("created_at")
+  updatedAt    DateTime                @updatedAt @map("updated_at")
+  investment   Investment              @relation(fields: [investmentId], references: [id])
+  investmentId String                  @map("investment_id") @db.Uuid
+  growth       InvestmentGrowth        @relation(fields: [growthId], references: [id])
+  growthId     String                  @map("growth_id") @db.Uuid
+
+  @@unique([investmentId, growthId])
+  @@map("investment_earning")
+}
+
+enum ReferralBonusType {
+  Investment @map("investment")
+
+  @@map("referral_bonus_type")
+}
+
+model ReferralBonus {
+  id         String            @id @default(uuid()) @db.Uuid
+  amount     Decimal           @db.Decimal(20, 2)
+  percent    Decimal           @db.Decimal(5, 2)
+  type       ReferralBonusType
+  level      Int               @default(1) @db.SmallInt
+  entityId   String            @map("entity_id") @db.Uuid
+  isUnlocked Boolean           @default(false) @map("is_unlocked")
+  unlockedAt DateTime?         @map("unlocked_at")
+  createdAt  DateTime          @default(now()) @map("created_at")
+  updatedAt  DateTime          @updatedAt @map("updated_at")
+  user       User              @relation("ReferralBonuses", fields: [userId], references: [id])
+  userId     String            @map("user_id") @db.Uuid
+  referral   User              @relation("UplineBonuses", fields: [referralId], references: [id])
+  referralId String            @map("referral_id") @db.Uuid
+
+  @@map("referral_bonus")
+}
+
+enum PaymentStatus {
+  Pending @map("pending")
+  Success @map("success")
+
+  @@map("payment_status")
+}
+
+model PaymentWallet {
+  id              String    @id @default(uuid()) @db.Uuid
+  token           String
+  address         String    @unique()
+  receiverAddress String    @map("receiver_address")
+  callbackUrl     String    @map("callback_url")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  payer           User      @relation(fields: [payerId], references: [id])
+  payerId         String    @map("payer_id") @db.Uuid
+  payments        Payment[]
+
+  @@unique([payerId, token])
+  @@map("payment_wallet")
+}
+
+model Payment {
+  id                  String        @id @default(uuid()) @db.Uuid
+  amount              Decimal       @map("amount") @db.Decimal(36, 18)
+  fees                Decimal       @db.Decimal(36, 18)
+  receivedAmount      Decimal       @map("received_amount") @db.Decimal(36, 18)
+  amountInUsd         Decimal       @map("token_amount_in_usd") @db.Decimal(20, 2)
+  receivedAmountInUsd Decimal       @map("received_amount_in_usd") @db.Decimal(20, 2)
+  priceInUsd          Decimal       @map("price_in_usd") @db.Decimal(36, 18)
+  txidIn              String        @map("txid_in")
+  txidOut             String        @map("txid_out")
+  status              PaymentStatus @default(Success)
+  createdAt           DateTime      @default(now()) @map("created_at")
+  updatedAt           DateTime      @updatedAt @map("updated_at")
+  wallet              PaymentWallet @relation(fields: [walletId], references: [id])
+  walletId            String        @map("wallet_id") @db.Uuid
+
+  @@map("payment")
+}
+
+enum WithdrawStatus {
+  Pending   @map("pending")
+  Processed @map("processed")
+  Failed    @map("failed")
+
+  @@map("withdraw_status")
+}
+
+model Withdraw {
+  id           String         @id @default(uuid()) @db.Uuid
+  amount       Decimal        @db.Decimal(20, 2)
+  address      String
+  txhash       String?
+  status       WithdrawStatus @default(Pending)
+  reason       Json?
+  expectedTime DateTime       @map("expected_time")
+  processedAt  DateTime?      @map("processed_at")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+  user         User           @relation(fields: [userId], references: [id])
+  userId       String         @map("user_id") @db.Uuid
+
+  @@map("withdraw")
+}

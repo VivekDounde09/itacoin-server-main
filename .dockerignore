@@ -1,0 +1,29 @@
+# Version control
+.git
+.gitignore
+
+# IDE/Tools
+.vscode/
+.husky/
+
+# Logs
+logs
+
+# Storage
+storage
+
+# Compiled output
+dist/
+node_modules/
+coverage/
+typechain
+
+# Document/Markdown files
+*.md
+
+# Environment files
+*.env
+
+# OS and cache
+.DS_Store
+.eslintcache
